@@ -1,15 +1,10 @@
 const dotenv = require('dotenv');
-console.log('NODE_ENV:', process.env.NODE_ENV);
-
 dotenv.config({ path: './config.env', override: false });
 
 const app = require('./app');
 
-// for production
-// process.env.NODE_ENV = 'production';
-
-console.log('NODE_ENV:', process.env.NODE_ENV);
-console.log('EXPRESS ENV:', app.get('env'));
+// console.log('NODE_ENV:', process.env.NODE_ENV);
+// console.log('EXPRESS ENV:', app.get('env'));
 
 const port = process.env.PORT || 3000;
 app.listen(port, () => {
