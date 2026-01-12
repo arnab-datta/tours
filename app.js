@@ -11,7 +11,7 @@ const app = express();
 app.use(express.json());
 
 // Logging: morgan middleware
-if (process.env.NODE_ENV === 'development') {
+if ((process.env.NODE_ENV = 'development')) {
   app.use(morgan('dev'));
 }
 
