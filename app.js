@@ -9,15 +9,14 @@ const port = 8080;
 const app = express();
 app.use(express.json());
 
-// GET
-app.get('/api/v1/tours', (req, res) => {
+const getAllTours = (req, res) => {
   res.status(200).json({
     status: 'success',
     results: tours.length,
     data: { tours },
   });
-});
-app.get('/api/v1/tours/:id', (req, res) => {
+};
+const getTour = (req, res) => {
   const id = req.params.id * 1;
   const tour = tours.find((t) => t.id === id);
 
@@ -33,10 +32,9 @@ app.get('/api/v1/tours/:id', (req, res) => {
       data: { tour },
     });
   }
-});
+};
 
-// POST
-app.post('/api/v1/tours', (req, res) => {
+const createTour = (req, res) => {
   const newTourId = tours[tours.length - 1].id + 1;
   const newTour = Object.assign({ id: newTourId }, req.body);
   tours.push(newTour);
@@ -52,10 +50,9 @@ app.post('/api/v1/tours', (req, res) => {
       });
     }
   );
-});
+};
 
-// PATCH
-app.patch('/api/v1/tours/:id', (req, res) => {
+const updateTour = (req, res) => {
   const id = req.params.id * 1;
   const tour = tours.find((t) => t.id === id);
   if (!tour) {
@@ -77,10 +74,9 @@ app.patch('/api/v1/tours/:id', (req, res) => {
       }
     );
   }
-});
+};
 
-// DELETE
-app.delete('/api/v1/tours/:id', (req, res) => {
+const deleteTour = (req, res) => {
   const id = req.params.id * 1;
   const tour = tours.find((t) => t.id === id);
   if (!tour) {
@@ -102,7 +98,28 @@ app.delete('/api/v1/tours/:id', (req, res) => {
       }
     );
   }
-});
+};
+
+// // GET
+// app.get('/api/v1/tours', getAllTours);
+// app.get('/api/v1/tours/:id', getTour);
+
+// // POST
+// app.post('/api/v1/tours', createTour);
+
+// // PATCH
+// app.patch('/api/v1/tours/:id', updateTour);
+
+// // DELETE
+// app.delete('/api/v1/tours/:id', deleteTour);
+
+// routes
+app.route('/api/v1/tours').get(getAllTours).post(createTour);
+app
+  .route('/api/v1/tours/:id')
+  .get(getTour)
+  .patch(updateTour)
+  .delete(deleteTour);
 
 app.listen(port, () => {
   // cb will be called as soon as the server start listening
