@@ -6,6 +6,7 @@ const tours = JSON.parse(
 
 // tours
 
+// Error Handling Middlewares
 const checkID = (req, res, next, val) => {
   console.log(`ID: ${val}`);
   if (req.params.id * 1 > tours.length) {
@@ -16,7 +17,17 @@ const checkID = (req, res, next, val) => {
   }
   next();
 };
+const checkBody = (req, res, next) => {
+  if (!req.body.name || !req.body.price) {
+    return res.status(404).json({
+      status: 'failed',
+      message: 'Missing name or price',
+    });
+  }
+  next();
+};
 
+// Handlers
 const getAllTours = (req, res) => {
   console.log(req.requestTime);
   res.status(200).json({
@@ -94,4 +105,5 @@ module.exports = {
   updateTour,
   deleteTour,
   checkID,
+  checkBody,
 };

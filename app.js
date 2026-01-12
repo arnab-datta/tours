@@ -7,11 +7,16 @@ const app = express();
 
 // 1) Middlewares
 
-// body parser alternative
+// Body Parsing: body parser alternative
 app.use(express.json());
 
-// morgan middleware
-app.use(morgan('dev'));
+// Logging: morgan middleware
+if ((process.env.NODE_ENV = 'development')) {
+  app.use(morgan('dev'));
+}
+
+// Serving Static Files
+app.use(express.static(`${__dirname}/public`));
 
 // custom middleware
 app.use((req, res, next) => {
