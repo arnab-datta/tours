@@ -30,8 +30,10 @@ app.use((req, res, next) => {
 });
 
 // 2) ROUTE HANDLERS --> controllers
+// moved inside controllers
 
 // 3) ROUTES --> routes
+// moved inside routes folders
 app.use('/api/v1/tours', tourRouter);
 app.use('/api/v1/users', userRouter);
 
