@@ -47,6 +47,7 @@
     "mime": "^1.6.0",
     "mime-db": "^1.52.0",
     "mime-types": "^2.1.35",
+    "mongodb": "6.0",
     "mongoose": "^8.12.1",
     "morgan": "^1.10.1",
     "ms": "^2.0.0",
@@ -76,8 +77,8 @@
     "vary": "^1.1.2"
   },
   "scripts": {
-    "start": "nodemon app.js",
-    "start:prod": "cross-env NODE_ENV=production nodemon app.js",
+    "start": "nodemon server.js",
+    "start:prod": "cross-env NODE_ENV=production nodemon server.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "Arnab Datta",

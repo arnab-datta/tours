@@ -1,28 +1,25 @@
 const dotenv = require('dotenv');
+dotenv.config({ path: './config.env', override: false }); // FIRST
+
 const mongoose = require('mongoose');
 
-const app = require('./app');
+const app = require('./app'); // AFTER dotenv
 
-dotenv.config({ path: './config.env', override: false });
+// const DB = process.env.DATABASE.replace(
+//   '<PASSWORD>',
+//   process.env.DATABASE_PASSWORD
+// );
 
-const DB = process.env.DATABASE.replace(
-  '<PASSWORD>',
-  process.env.DATABASE_PASSWORD
-);
+const DB = process.env.DATABASE_LOCAL;
 
 mongoose
-  .connect(DB, {
-    useNewUrlParser: true,
-    useCreateIndex: true,
-    useFindAndModify: false,
-  })
+  .connect(DB)
   .then((con) => {
+    console.log('✅ MongoDB Atlas connected');
     console.log(con.connections);
-    console.log('DB Connection successful');
   })
-  .catch((ex) => {
-    console.log(ex);
-  });
+  .catch((err) => console.error('❌ MongoDB connection error:', err));
+
 // console.log('NODE_ENV:', process.env.NODE_ENV);
 // console.log('EXPRESS ENV:', app.get('env'));
 
