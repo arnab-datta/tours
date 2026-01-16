@@ -1,5 +1,11 @@
-const fs = require('fs');
 const Tour = require('./../models/tourModel');
+
+const aliasTopTours = (req, res, next) => {
+  req.query.limit = '5';
+  req.query.sort = '-ratingsAverage,price';
+  req.query.fields = 'name,price,ratingsAverage,summary,difficulty';
+  next();
+};
 
 // Handlers
 const getAllTours = async (req, res) => {
@@ -134,7 +140,7 @@ const deleteTour = async (req, res) => {
 };
 
 // Handlers using updating local file
-
+// const fs = require('fs');
 // const tours = JSON.parse(
 //   fs.readFileSync(`${__dirname}/../dev-data/data/tours-simple.json`)
 // );
@@ -237,6 +243,7 @@ module.exports = {
   createTour,
   updateTour,
   deleteTour,
+  aliasTopTours,
   // checkID,
   // checkBody,
 };
