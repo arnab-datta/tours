@@ -103,6 +103,50 @@ const deleteTour = async (req, res) => {
   }
 };
 
+const getTourStats = async (req, res) => {
+  try {
+    const stats = await Tour.aggregate([
+      {
+        $match: { ratingsAverage: { $gte: 4.5 } },
+      },
+      {
+        $group: {
+          _id: { $toUpper: '$difficulty' },
+          numTours: { $sum: 1 },
+          numRatings: { $sum: '$ratingsQuantity' },
+          avgRating: { $avg: '$ratingsAverage' },
+          avgPrice: { $avg: '$price' },
+          minPrice: { $min: '$price' },
+          maxPrice: { $max: '$price' },
+        },
+      },
+      {
+        $sort: { avgPrice: 1 },
+      },
+      // { $match: { _id: { $ne: 'EASY' } } },
+    ]);
+    res.status(200).json({
+      status: 'success',
+      data: { stats },
+    });
+  } catch (err) {
+    return res.status(404).json({
+      status: 'failed',
+      message: 'Invalid ID',
+    });
+  }
+};
+
+module.exports = {
+  getAllTours,
+  getTour,
+  createTour,
+  updateTour,
+  deleteTour,
+  aliasTopTours,
+  getTourStats,
+};
+
 /*******************  old codes before refractoring *********************************/
 
 // const getAllTours = async (req, res) => {
@@ -266,13 +310,14 @@ const deleteTour = async (req, res) => {
 //   );
 // };
 
-module.exports = {
-  getAllTours,
-  getTour,
-  createTour,
-  updateTour,
-  deleteTour,
-  aliasTopTours,
-  // checkID,
-  // checkBody,
-};
+// module.exports = {
+//   getAllTours,
+//   getTour,
+//   createTour,
+//   updateTour,
+//   deleteTour,
+//   aliasTopTours,
+//   getTourStats,
+//   // checkID,
+//   // checkBody,
+// };
