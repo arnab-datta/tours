@@ -1,4 +1,5 @@
 const dotenv = require('dotenv');
+// dotenv.config({ path: './config.env', override: true }); // FIRST
 dotenv.config({ path: './config.env' }); // FIRST
 const mongoose = require('mongoose');
 const app = require('./app'); // AFTER dotenv

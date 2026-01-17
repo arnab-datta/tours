@@ -10,6 +10,11 @@ const handleDuplicateField = (err) => {
   const message = `Duplicate Field value: ${value}, Please use another value`;
   return new AppError(message, 400);
 };
+const handleValidationError = (err) => {
+  const errors = Object.values(err.errors).map((el) => el.message);
+  const message = `Invalid input data. ${errors.join('. ')}`;
+  return new AppError(message, 400);
+};
 
 const sendErrDev = (err, res) => {
   res.status(err.statusCode).json({
@@ -51,6 +56,7 @@ module.exports = (err, req, res, next) => {
     let error = { ...err };
     if (err.name == 'CastError') error = handleCastError(error);
     if (err.code == 11000) error = handleDuplicateField(error);
+    if (err.name == 'ValidationError') error = handleValidationError(error);
     sendErrProd(error, res);
   }
 };
