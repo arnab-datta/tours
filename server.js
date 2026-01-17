@@ -2,6 +2,14 @@ const dotenv = require('dotenv');
 // dotenv.config({ path: './config.env', override: true }); // FIRST
 dotenv.config({ path: './config.env' }); // FIRST
 const mongoose = require('mongoose');
+
+process.on('uncaughtException', (err) => {
+  console.log('UNCAUGHT EXCEPTION! 💥 Shutting down...');
+  console.log(err.name, ' : ', err.message);
+
+  process.exit(1);
+});
+
 const app = require('./app'); // AFTER dotenv
 
 // production
