@@ -19,6 +19,7 @@ mongoose
   })
   .catch((err) => console.error('❌ MongoDB connection error:', err));
 
+// 4) START SERVER
 const port = process.env.PORT;
 app.listen(port, () => {
   // cb will be called as soon as the server start listening
