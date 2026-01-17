@@ -1,5 +1,5 @@
 const dotenv = require('dotenv');
-dotenv.config({ path: './config.env', override: true }); // FIRST
+dotenv.config({ path: './config.env' }); // FIRST
 const mongoose = require('mongoose');
 const app = require('./app'); // AFTER dotenv
 
@@ -18,6 +18,8 @@ mongoose
     console.log('✅ MongoDB connected');
   })
   .catch((err) => console.error('❌ MongoDB connection error:', err));
+
+console.log('NODE_ENV : ', process.env.NODE_ENV);
 
 // 4) START SERVER
 const port = process.env.PORT;
