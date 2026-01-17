@@ -13,19 +13,24 @@ const app = require('./app'); // AFTER dotenv
 // local
 const DB = process.env.DATABASE_LOCAL;
 
-mongoose
-  .connect(DB)
-  .then((con) => {
-    console.log('✅ MongoDB connected');
-  })
-  .catch((err) => console.error('❌ MongoDB connection error:', err));
+mongoose.connect(DB).then((con) => {
+  console.log('✅ MongoDB connected');
+});
+// .catch((err) => console.error('❌ MongoDB connection error:', err));
 
 console.log('NODE_ENV : ', process.env.NODE_ENV);
 
 // 4) START SERVER
 const port = process.env.PORT;
-app.listen(port, () => {
+const server = app.listen(port, () => {
   // cb will be called as soon as the server start listening
   console.log(`App running at port ${port}`);
 });
-// TEST
+
+process.on('unhandledRejection', (err) => {
+  console.log(err.name, ' : ', err.message);
+  console.log('UNHANDLER REJECTION! 💥 Shutting down...');
+  server.close(() => {
+    process.exit(1);
+  });
+});
