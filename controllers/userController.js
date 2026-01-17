@@ -1,11 +1,15 @@
 const express = require('express');
+const User = require('../models/userModel');
 
 // users
 const getAllUsers = (req, res) => {
+  const users = User.find();
+
   res.status(200).json({
     status: 'success',
+    results: users.length,
     data: {
-      users: [],
+      users: users,
     },
   });
 };
