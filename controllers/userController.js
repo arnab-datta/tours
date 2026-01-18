@@ -1,9 +1,10 @@
 const express = require('express');
 const User = require('../models/userModel');
+const catchAsync = require('../utils/catchAsync');
 
 // users
-const getAllUsers = (req, res) => {
-  const users = User.find();
+const getAllUsers = catchAsync(async (req, res, next) => {
+  const users = await User.find();
 
   res.status(200).json({
     status: 'success',
@@ -12,7 +13,7 @@ const getAllUsers = (req, res) => {
       users: users,
     },
   });
-};
+});
 
 const getUser = (req, res) => {
   res.status(200).json({
