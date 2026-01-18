@@ -11,13 +11,15 @@ const signToken = (id) => {
 };
 
 const signup = catchAsync(async (req, res, next) => {
-  const newUser = await User.create({
-    name: req.body.name,
-    email: req.body.email,
-    password: req.body.password,
-    passwordConfirm: req.body.passwordConfirm,
-    passwordChangedAt: req.body.passwordChangedAt,
-  });
+  // const newUser = await User.create({
+  //   name: req.body.name,
+  //   email: req.body.email,
+  //   password: req.body.password,
+  //   passwordConfirm: req.body.passwordConfirm,
+  //   role: req.body.role,
+  //   passwordChangedAt: req.body.passwordChangedAt,
+  // });
+  const newUser = await User.create(req.body);
 
   const token = signToken(newUser._id);
 
@@ -97,8 +99,20 @@ const protect = catchAsync(async (req, res, next) => {
   next();
 });
 
+const restrictTo = (...roles) => {
+  return (req, res, next) => {
+    if (!roles.includes(req.user.role)) {
+      return next(
+        new AppError('You do not have permission to perform this action.', 403),
+      );
+    }
+    next();
+  };
+};
+
 module.exports = {
   signup,
   login,
   protect,
+  restrictTo,
 };
