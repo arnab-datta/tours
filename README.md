@@ -2,7 +2,6 @@
 
 ![Tours App](https://cdn.prod.website-files.com/664d0f8b7d168b5bb6003084/674d2dac2b9fde47301013c2_full-stack-applications-nodejs-express-mongodb.png)
 
-
 (https://deepwiki.com/arnab-datta/tours)
 
 This repository contains the backend for "Tours," a fictional tour booking application. It is a RESTful API built with Node.js, Express, and MongoDB, providing a complete solution for managing tours, users, and authentication.
@@ -33,12 +32,14 @@ This repository contains the backend for "Tours," a fictional tour booking appli
 Follow these steps to get the project running on your local machine.
 
 1.  **Clone the repository:**
+
     ```sh
     git clone https://github.com/arnab-datta/tours.git
     cd tours
     ```
 
 2.  **Install dependencies:**
+
     ```sh
     npm install
     ```
@@ -60,8 +61,8 @@ Follow these steps to get the project running on your local machine.
     EMAIL_PORT=2525
     EMAIL_USERNAME=your-mailtrap-username
     EMAIL_PASSWORD=your-mailtrap-password
-    EMAIL_SENDER_NAME="Your Name"
-    EMAIL_SENDER_MAIL="hello@example.com"
+    EMAIL_FROM="Your Name"
+    EMAIL_FROM_NAME="hello@example.com"
     ```
 
 4.  **Import development data (optional):**
@@ -76,6 +77,7 @@ Follow these steps to get the project running on your local machine.
     ```
 
 5.  **Run the server:**
+
     ```sh
     # For development (with nodemon)
     npm start
@@ -83,6 +85,7 @@ Follow these steps to get the project running on your local machine.
     # For production
     npm run start:prod
     ```
+
     The API will be available at `http://localhost:3000`.
 
 ## API Endpoints
@@ -91,29 +94,29 @@ All endpoints are prefixed with `/api/v1`.
 
 ### User & Authentication Routes
 
-| HTTP Method | Endpoint                    | Description                                        | Access       |
-|-------------|-----------------------------|----------------------------------------------------|--------------|
-| `POST`      | `/users/signup`             | Register a new user                                | Public       |
-| `POST`      | `/users/login`              | Log in a user and receive a JWT                    | Public       |
-| `POST`      | `/users/forgotPassword`     | Send a password reset token to the user's email    | Public       |
-| `PATCH`     | `/users/resetPassword/:token` | Reset password using the provided token          | Public       |
-| `PATCH`     | `/users/updateMyPassword`   | Update the currently logged-in user's password     | Logged-in User |
-| `PATCH`     | `/users/updateMe`           | Update the currently logged-in user's data         | Logged-in User |
-| `DELETE`    | `/users/deleteMe`           | Deactivate the currently logged-in user's account  | Logged-in User |
-| `GET`       | `/users`                    | Get all users                                      | Admin        |
+| HTTP Method | Endpoint                      | Description                                       | Access         |
+| ----------- | ----------------------------- | ------------------------------------------------- | -------------- |
+| `POST`      | `/users/signup`               | Register a new user                               | Public         |
+| `POST`      | `/users/login`                | Log in a user and receive a JWT                   | Public         |
+| `POST`      | `/users/forgotPassword`       | Send a password reset token to the user's email   | Public         |
+| `PATCH`     | `/users/resetPassword/:token` | Reset password using the provided token           | Public         |
+| `PATCH`     | `/users/updateMyPassword`     | Update the currently logged-in user's password    | Logged-in User |
+| `PATCH`     | `/users/updateMe`             | Update the currently logged-in user's data        | Logged-in User |
+| `DELETE`    | `/users/deleteMe`             | Deactivate the currently logged-in user's account | Logged-in User |
+| `GET`       | `/users`                      | Get all users                                     | Admin          |
 
 ### Tour Routes
 
-| HTTP Method | Endpoint                | Description                                                          | Access                      |
-|-------------|-------------------------|----------------------------------------------------------------------|-----------------------------|
-| `GET`       | `/tours`                | Get all tours (supports filtering, sorting, pagination, and fields)  | Logged-in User               |
-| `POST`      | `/tours`                | Create a new tour                                                    | Admin, Lead-Guide           |
-| `GET`       | `/tours/:id`            | Get a single tour by ID                                              | Logged-in User               |
-| `PATCH`     | `/tours/:id`            | Update a tour                                                        | Admin, Lead-Guide           |
-| `DELETE`    | `/tours/:id`            | Delete a tour                                                        | Admin, Lead-Guide           |
-| `GET`       | `/tours/top-5-cheap`    | Get the top 5 cheapest tours with the best ratings                   | Logged-in User               |
-| `GET`       | `/tours/tour-stats`     | Get aggregated statistics about tours (avg rating, price, etc.)      | Logged-in User               |
-| `GET`       | `/tours/monthly-plan/:year`| Get a monthly plan of tours for a given year                      | Logged-in User               |
+| HTTP Method | Endpoint                    | Description                                                         | Access            |
+| ----------- | --------------------------- | ------------------------------------------------------------------- | ----------------- |
+| `GET`       | `/tours`                    | Get all tours (supports filtering, sorting, pagination, and fields) | Logged-in User    |
+| `POST`      | `/tours`                    | Create a new tour                                                   | Admin, Lead-Guide |
+| `GET`       | `/tours/:id`                | Get a single tour by ID                                             | Logged-in User    |
+| `PATCH`     | `/tours/:id`                | Update a tour                                                       | Admin, Lead-Guide |
+| `DELETE`    | `/tours/:id`                | Delete a tour                                                       | Admin, Lead-Guide |
+| `GET`       | `/tours/top-5-cheap`        | Get the top 5 cheapest tours with the best ratings                  | Logged-in User    |
+| `GET`       | `/tours/tour-stats`         | Get aggregated statistics about tours (avg rating, price, etc.)     | Logged-in User    |
+| `GET`       | `/tours/monthly-plan/:year` | Get a monthly plan of tours for a given year                        | Logged-in User    |
 
 ## Project Structure
 
@@ -141,3 +144,4 @@ The repository follows a modular structure to keep the codebase organized and ma
 │   └── email.js            # Email sending utility
 ├── public/                 # Static files (HTML, CSS for a simple frontend)
 └── dev-data/               # Development data and import scripts
+```
