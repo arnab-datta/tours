@@ -102,6 +102,6 @@
   "license": "ISC",
   "devDependencies": {
     "cross-env": "^10.1.0",
-    "parcel": "^2.16.3"
+    "parcel-bundler": "^1.12.5"
   }
 }
